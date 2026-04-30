@@ -16,11 +16,11 @@ export default {
         blueBG : "#2160C4", // BLUE BACKGROUND
         
         // TEXT COLORS
-        textWhite = "#FFFFFF",
-        textBlue = "#205DBE",
-        textGrey = "#686E8B",
-        textBlack = "#282C34",
-        starBG = "#F59F0A",
+        textWhite : "#FFFFFF",
+        textBlue : "#205DBE",
+        textGrey : "#686E8B",
+        textBlack : "#282C34",
+        starBG : "#F59F0A",
       },
     },
   },

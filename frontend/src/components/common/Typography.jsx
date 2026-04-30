@@ -1,6 +1,6 @@
 import React from "react";
 
-function Typography({ variant, children, style }) {
+function Typography({ variant ="h4", children, className, ...props }) {
   // FOR ASSIGN TAG NAME TO TAG-VARIANT
   const tagVariant = {
     h1: "h1",
@@ -27,7 +27,9 @@ function Typography({ variant, children, style }) {
 
   return (
     <div>
-      <Tag className={`${tagStyle[variant]} ${style}`}>{children}</Tag>
+      <Tag className={`${tagStyle[variant]} ${className || ""}`} {...props}>{children}
+
+      </Tag>
     </div>
   );
 }

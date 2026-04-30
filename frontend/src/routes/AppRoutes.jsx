@@ -18,7 +18,9 @@ function AppRoutes() {
     <div>
       <BrowserRouter>
       {/* NAVBAR */}
+      <div className=''>
         <Navbar />
+      </div>
       {/* CREATE ROUTES FOR ALL PAGES */}
         <Routes>
             <Route path='' element={<Home />}/>

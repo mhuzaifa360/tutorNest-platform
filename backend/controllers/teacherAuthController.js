@@ -1,11 +1,11 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { Student } from "../models/index.js"; // adjust path if needed
+import { Teacher } from "../models/index.js"; // adjust path if needed
 
 // =========================
-// SIGNUP CONTROLLER
+// TEACHER SIGNUP
 // =========================
-export const signupStudent = async (req, res) => {
+export const signupTeacher = async (req, res) => {
   try {
     const {
       firstName,
@@ -17,25 +17,27 @@ export const signupStudent = async (req, res) => {
       city,
       gender,
       subjects,
+      experience,
+      bio,
     } = req.body;
 
     const profileImage = req.file ? req.file.filename : null;
 
-    // check existing user
-    const existingStudent = await Student.findOne({ where: { email } });
+    // check if teacher already exists
+    const existingTeacher = await Teacher.findOne({ where: { email } });
 
-    if (existingStudent) {
+    if (existingTeacher) {
       return res.status(400).json({
         success: false,
-        message: "Student already exists",
+        message: "Teacher already exists",
       });
     }
 
     // hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // create student
-    const newStudent = await Student.create({
+    // create teacher
+    const newTeacher = await Teacher.create({
       firstName,
       lastName,
       email,
@@ -45,40 +47,42 @@ export const signupStudent = async (req, res) => {
       city,
       gender,
       subjects,
+      experience,
+      bio,
       profileImage,
     });
 
     return res.status(201).json({
       success: true,
-      message: "Student created successfully",
-      data: newStudent,
+      message: "Teacher created successfully",
+      data: newTeacher,
     });
   } catch (error) {
     return res.status(500).json({
       success: false,
-      message: "Signup failed",
+      message: "Teacher signup failed",
       error: error.message,
     });
   }
 };
 
 // =========================
-// LOGIN CONTROLLER
+// TEACHER LOGIN
 // =========================
-export const loginStudent = async (req, res) => {
+export const loginTeacher = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const student = await Student.findOne({ where: { email } });
+    const teacher = await Teacher.findOne({ where: { email } });
 
-    if (!student) {
+    if (!teacher) {
       return res.status(404).json({
         success: false,
-        message: "Student not found",
+        message: "Teacher not found",
       });
     }
 
-    const isMatch = await bcrypt.compare(password, student.password);
+    const isMatch = await bcrypt.compare(password, teacher.password);
 
     if (!isMatch) {
       return res.status(401).json({
@@ -87,23 +91,22 @@ export const loginStudent = async (req, res) => {
       });
     }
 
-    // create JWT token
     const token = jwt.sign(
-      { id: student.id, email: student.email },
+      { id: teacher.id, email: teacher.email, role: "teacher" },
       process.env.JWT_SECRET,
-      { expiresIn: "7d" },
+      { expiresIn: "7d" }
     );
 
     return res.status(200).json({
       success: true,
       message: "Login successful",
       token,
-      data: student,
+      data: teacher,
     });
   } catch (error) {
     return res.status(500).json({
       success: false,
-      message: "Login failed",
+      message: "Teacher login failed",
       error: error.message,
     });
   }

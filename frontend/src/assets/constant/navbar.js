@@ -24,5 +24,15 @@ export const navbar = [
         id: 5,
         pathName: "/contact",
         pathValue: "Contact"
-    }
+    },
+    // {
+    //     id: 6,
+    //     pathName: 'studentdashboard',
+    //     pathValue: "Student Dashboard"
+    // },
+    // {
+    //     id: 7,
+    //     pathName: 'teacherdashboard',
+    //     pathValue: "Teacher Dashboard"
+    // },
 ]

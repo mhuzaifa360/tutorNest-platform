@@ -11,25 +11,18 @@ function Navbar() {
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm">
-
       <div className="max-w-7xl mx-auto px-4 md:px-6">
-
         {/* NAVBAR CONTAINER */}
         <div className="flex items-center justify-between h-20">
-
           {/* LOGO */}
           <Link to="/">
-            <Typography
-              variant="h2"
-              className="font-bold text-primary"
-            >
+            <Typography variant="h2" className="font-bold text-primary">
               TutorNest
             </Typography>
           </Link>
 
           {/* DESKTOP NAV LINKS */}
           <div className="hidden md:flex items-center gap-2">
-
             {navbar.map((item, key) => {
               const isActive = location.pathname === item.pathName;
 
@@ -45,9 +38,7 @@ function Navbar() {
                     }
                   `}
                 >
-                  <Typography variant="h6">
-                    {item.pathValue}
-                  </Typography>
+                  <Typography variant="h6">{item.pathValue}</Typography>
                 </Link>
               );
             })}
@@ -55,17 +46,21 @@ function Navbar() {
 
           {/* DESKTOP BUTTONS */}
           <div className="hidden md:flex items-center gap-3">
-            <Btn variant="white">Login</Btn>
-            <Btn variant="blue">Sign Up</Btn>
+            <Link to={"/login"}>
+              <Btn variant="white">Login</Btn>
+            </Link>
+            <Link to={"/signup"}>
+              <Btn variant="blue">Sign Up</Btn>
+            </Link>
           </div>
 
           {/* MOBILE BURGER BUTTON */}
-          <button
+          <Btn
             className="md:hidden text-3xl text-textBlack"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <FiX /> : <FiMenu />}
-          </button>
+          </Btn>
         </div>
 
         {/* MOBILE MENU */}
@@ -74,10 +69,8 @@ function Navbar() {
             isOpen ? "max-h-[500px] py-4" : "max-h-0"
           }`}
         >
-
           {/* MOBILE LINKS */}
           <div className="flex flex-col gap-2">
-
             {navbar.map((item, key) => {
               const isActive = location.pathname === item.pathName;
 
@@ -94,19 +87,20 @@ function Navbar() {
                     }
                   `}
                 >
-                  <Typography variant="h6">
-                    {item.pathValue}
-                  </Typography>
+                  <Typography variant="h6">{item.pathValue}</Typography>
                 </Link>
               );
             })}
 
             {/* MOBILE BUTTONS */}
             <div className="flex flex-col gap-3 pt-4">
-              <Btn variant="white">Login</Btn>
-              <Btn variant="blue">Sign Up</Btn>
+              <Link to={"/login"}>
+                <Btn variant="white">Login</Btn>
+              </Link>
+              <Link to={"/signup"}>
+                <Btn variant="blue">Sign Up</Btn>
+              </Link>
             </div>
-
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { Course } from "../models/index.js";
+import { Teacher } from "../models/index.js";
 
 export const createCourse = async (req, res) => {
   try {
@@ -28,8 +29,6 @@ export const createCourse = async (req, res) => {
   }
 };
 
-import { Course } from "../models/index.js";
-import { Teacher } from "../models/index.js";
 
 export const getCourses = async (req, res) => {
   try {

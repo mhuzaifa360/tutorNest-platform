@@ -10,7 +10,7 @@ import {
   loginTeacher,
 } from "../controllers/teacherAuthController.js";
 
-import upload from "../middleware/multer.js";
+import upload from '../utils/multer.js'
 
 const router = express.Router();
 

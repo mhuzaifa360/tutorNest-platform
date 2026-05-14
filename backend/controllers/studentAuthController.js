@@ -1,6 +1,7 @@
-import bcrypt from "bcrypt";
+import bcrypt from 'bcryptjs'
 import jwt from "jsonwebtoken";
-import { Student } from "../models/index.js"; // adjust path if needed
+import Student from '../models/studentModel.js';
+
 
 // =========================
 // SIGNUP CONTROLLER

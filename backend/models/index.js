@@ -1,5 +1,5 @@
-import { Teacher } from "./teacher.js";
-import { Course } from "./course.js";
+import Teacher from '../models/teacherModel.js'
+import { Course } from './courseModel.js';
 
 // =========================
 // RELATIONSHIP SETUP

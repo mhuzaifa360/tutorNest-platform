@@ -1,4 +1,4 @@
-import { Student } from "../models/index.js";
+import Student from "../models/studentModel.js";
 
 // =========================
 // CREATE STUDENT

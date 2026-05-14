@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 
-// Sequelize Instance
-const database = new Sequelize(
+// Sequelize Instance (rename to sequelize)
+const sequelize = new Sequelize(
   "tutornest",
   "root",
   "",
@@ -14,11 +14,11 @@ const database = new Sequelize(
 
 const connectDB = async () => {
   try {
-    await database.authenticate();
+    await sequelize.authenticate();
     console.log("✅ Database connected successfully");
 
-    await database.sync({
-      alter: true, // safer than force
+    await sequelize.sync({
+      alter: true,
     });
 
     console.log("✅ Database synced successfully");
@@ -30,4 +30,4 @@ const connectDB = async () => {
   }
 };
 
-export { database, connectDB };
+export { sequelize, connectDB };

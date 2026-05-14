@@ -1,8 +1,8 @@
 import { DataTypes } from "sequelize";
-import { database } from "../config/database.js";
+import { sequelize } from "../config/database.js";
 
-const Tutor = database.define(
-  "Tutor",
+const Teacher = sequelize.define(
+  "Teacher",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -138,9 +138,9 @@ const Tutor = database.define(
   },
 
   {
-    tableName: "tutors",
+    tableName: "Teacher",
     timestamps: true,
   }
 );
 
-export default Tutor;
+export default Teacher;

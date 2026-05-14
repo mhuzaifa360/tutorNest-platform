@@ -1,6 +1,6 @@
-import { Enrollment } from "../models/enrollment.js";
-import { Course } from "../models/course.js";
-import { Student } from "../models/student.js";
+import {Enrollment} from '../models/enrollmentModel.js'
+import { Course } from "../models/courseModel.js";
+import Student from '../models/studentModel.js';
 
 // =========================
 // ENROLL STUDENT IN COURSE

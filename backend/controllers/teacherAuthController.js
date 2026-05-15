@@ -19,6 +19,10 @@ export const signupTeacher = async (req, res) => {
       subjects,
       experience,
       bio,
+      qualification,
+      teachingMode,
+      hourlyFee,
+      cnic,
     } = req.body;
 
     const profileImage = req.file ? req.file.filename : null;
@@ -50,6 +54,10 @@ export const signupTeacher = async (req, res) => {
       experience,
       bio,
       profileImage,
+      qualification,
+      teachingMode,
+      hourlyFee,
+      cnic,
     });
 
     return res.status(201).json({

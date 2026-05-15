@@ -1,17 +1,43 @@
 import Student from "../models/studentModel.js";
+import bcrypt from "bcryptjs";
 
 // =========================
 // CREATE STUDENT
 // =========================
 export const createStudent = async (req, res) => {
   try {
-    const student = await Student.create(req.body);
+
+    // check existing student
+    const existingStudent = await Student.findOne({
+      where: { email: req.body.email },
+    });
+
+    if (existingStudent) {
+      return res.status(400).json({
+        success: false,
+        message: "Student already exists",
+      });
+    }
+
+    // hash password
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+    // create student
+    const student = await Student.create({
+      ...req.body,
+      email: req.body.email.trim().toLowerCase(),
+      password: hashedPassword,
+    });
+
+    // remove password from response
+    const { password, ...safeStudent } = student.toJSON();
 
     return res.status(201).json({
       success: true,
       message: "Student created successfully",
-      data: student,
+      data: safeStudent,
     });
+
   } catch (error) {
     return res.status(500).json({
       success: false,

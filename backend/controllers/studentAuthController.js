@@ -16,6 +16,7 @@ export const signupStudent = async (req, res) => {
       mobile,
       province,
       city,
+      classLevel,
       gender,
       subjects,
     } = req.body;
@@ -23,7 +24,7 @@ export const signupStudent = async (req, res) => {
     const profileImage = req.file ? req.file.filename : null;
 
     // check existing user
-    const existingStudent = await Student.findOne({ where: { email } });
+    const existingStudent = await Student.findOne({ where: { email: email.trim().toLowerCase() } });
 
     if (existingStudent) {
       return res.status(400).json({
@@ -46,6 +47,7 @@ export const signupStudent = async (req, res) => {
       city,
       gender,
       subjects,
+      classLevel,
       profileImage,
     });
 
@@ -70,7 +72,7 @@ export const loginStudent = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const student = await Student.findOne({ where: { email } });
+    const student = await Student.findOne({ where: { email: email.trim().toLowerCase() } });
 
     if (!student) {
       return res.status(404).json({

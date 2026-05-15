@@ -1,17 +1,43 @@
 import { Teacher } from "../models/index.js";
+import bcrypt from "bcryptjs";
 
 // =========================
 // CREATE TEACHER
 // =========================
 export const createTeacher = async (req, res) => {
   try {
-    const teacher = await Teacher.create(req.body);
+
+    // check existing teacher
+    const existingTeacher = await Teacher.findOne({
+      where: { email: req.body.email },
+    });
+
+    if (existingTeacher) {
+      return res.status(400).json({
+        success: false,
+        message: "Teacher already exists",
+      });
+    }
+
+    // hash password
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+    // create teacher
+    const teacher = await Teacher.create({
+      ...req.body,
+      email: req.body.email.trim().toLowerCase(),
+      password: hashedPassword,
+    });
+
+    // remove password from response
+    const { password, ...safeTeacher } = teacher.toJSON();
 
     return res.status(201).json({
       success: true,
       message: "Teacher created successfully",
-      data: teacher,
+      data: safeTeacher,
     });
+
   } catch (error) {
     return res.status(500).json({
       success: false,

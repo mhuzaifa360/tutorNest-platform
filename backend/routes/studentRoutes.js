@@ -15,7 +15,7 @@ const router = express.Router();
 // =========================
 // CREATE STUDENT
 // =========================
-router.post("/createStudents", createStudent);
+router.post("/createStudent", createStudent);
 
 // =========================
 // GET ALL STUDENTS

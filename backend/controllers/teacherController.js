@@ -18,7 +18,7 @@ export const createTeacher = async (req, res) => {
         message: "Teacher already exists",
       });
     }
-    console.log(res.body);
+    // console.log(res.body);
     
     // hash password
     const hashedPassword = await bcrypt.hash(req.body.password, 10);

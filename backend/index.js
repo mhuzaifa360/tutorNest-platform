@@ -8,9 +8,10 @@ import studentRoutes from "./routes/studentRoutes.js";
 import teacherRoutes from "./routes/teacherRoutes.js";
 import courseRoutes from "./routes/courseRoutes.js";
 import enrollmentRoutes from "./routes/enrollmentRoutes.js";
+import jobsRoutes from "./routes/jobsRoutes.js"
 
 // DB CONNECTION
-import { connectDB } from "./config/database.js";
+import { connectDB, sequelize } from "./config/database.js";
 
 dotenv.config();
 
@@ -33,13 +34,13 @@ app.use(express.urlencoded({ extended: true }));
 // BASE API PREFIX (v1)
 const API_PREFIX = "/v1";
 
-
 // ROUTES
 app.use(`${API_PREFIX}/auth`, authRoutes);  // auth routes
 app.use(`${API_PREFIX}/students`, studentRoutes); // student routes
 app.use(`${API_PREFIX}/teachers`, teacherRoutes); // teacher routes
 app.use(`${API_PREFIX}/courses`, courseRoutes); // course routes
 app.use(`${API_PREFIX}/enrollments`, enrollmentRoutes); // enrollment routes
+app.use(`${API_PREFIX}/jobs`, jobsRoutes); // jobs routes
 
 
 // HEALTH CHECK

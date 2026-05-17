@@ -29,7 +29,6 @@ export const createCourse = async (req, res) => {
   }
 };
 
-
 export const getCourses = async (req, res) => {
   try {
     const courses = await Course.findAll({
@@ -85,3 +84,75 @@ export const getSingleCourse = async (req, res) => {
   }
 };
 
+export const updateCourse = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const course = await Course.findByPk(id);
+
+    if (!course) {
+      return res.status(404).json({
+        success: false,
+        message: "Course not found",
+      });
+    }
+
+    // only teacher owner can update (optional but best)
+    if (course.teacherId !== req.user.id) {
+      return res.status(403).json({
+        success: false,
+        message: "Not allowed",
+      });
+    }
+
+    await course.update(req.body);
+
+    return res.status(200).json({
+      success: true,
+      message: "Course updated successfully",
+      data: course,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error updating course",
+      error: error.message,
+    });
+  }
+};
+
+export const deleteCourse = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const course = await Course.findByPk(id);
+
+    if (!course) {
+      return res.status(404).json({
+        success: false,
+        message: "Course not found",
+      });
+    }
+
+    // only owner teacher can delete
+    if (course.teacherId !== req.user.id) {
+      return res.status(403).json({
+        success: false,
+        message: "Not allowed",
+      });
+    }
+
+    await course.destroy();
+
+    return res.status(200).json({
+      success: true,
+      message: "Course deleted successfully",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error deleting course",
+      error: error.message,
+    });
+  }
+};

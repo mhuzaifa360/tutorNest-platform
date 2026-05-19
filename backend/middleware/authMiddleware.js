@@ -42,7 +42,7 @@ export const authorizeRoles = (...allowedRoles) => {
   return (req, res, next) => {
     try {
       if (!req.user) {
-        return res.status(401).json({
+        return res.status(401).json({ 
           success: false,
           message: "User not authenticated",
         });

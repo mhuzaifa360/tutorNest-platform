@@ -1,6 +1,4 @@
-import {Enrollment} from '../models/enrollmentModel.js'
-import { Course } from "../models/courseModel.js";
-import Student from '../models/studentModel.js';
+import { Enrollment, Course, Student } from '../models/index.js';
 
 // =========================
 // ENROLL STUDENT IN COURSE

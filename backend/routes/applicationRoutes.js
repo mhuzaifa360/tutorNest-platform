@@ -15,7 +15,7 @@ import {
 
 const router = express.Router();
 
-// APPLY ON JOB  |  Role: teacher
+// APPLY (TUTOR ONLY)
 router.post(
   "/apply",
   verifyToken,
@@ -23,21 +23,21 @@ router.post(
   applyJob
 );
 
-// GET ALL APPLICATIONS  |  Role: teacher, student
+// GET ALL
 router.get(
   "/getApplications",
   verifyToken,
   getApplications
 );
 
-// GET SINGLE APPLICATION  |  Role: teacher, student
+// GET SINGLE
 router.get(
   "/getSingleApplication/:id",
   verifyToken,
   getSingleApplication
 );
 
-// UPDATE APPLICATION (accept / reject)  |  Role: student
+// UPDATE STATUS (STUDENT ONLY)
 router.put(
   "/updateApplication/:id",
   verifyToken,
@@ -45,7 +45,7 @@ router.put(
   updateApplicationStatus
 );
 
-// DELETE APPLICATION  |  Role: teacher (withdraw own application)
+// DELETE
 router.delete(
   "/deleteApplication/:id",
   verifyToken,

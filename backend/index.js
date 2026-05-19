@@ -11,6 +11,7 @@ import enrollmentRoutes from "./routes/enrollmentRoutes.js";
 import jobsRoutes from "./routes/jobsRoutes.js"
 import applicationRoutes from "./routes/applicationRoutes.js"; 
 import reviewRoutes from "./routes/reviewsRoutes.js";
+import savedJobRoutes from "./routes/savedJobRoutes.js"; 
 
 // DB CONNECTION
 import { connectDB, sequelize } from "./config/database.js";
@@ -45,6 +46,7 @@ app.use(`${API_PREFIX}/enrollments`, enrollmentRoutes); // enrollment routes
 app.use(`${API_PREFIX}/jobs`, jobsRoutes); // jobs routes
 app.use(`${API_PREFIX}/applications`, applicationRoutes); // application routes
 app.use(`${API_PREFIX}/reviews`, reviewRoutes); // review routes
+app.use(`${API_PREFIX}/savedJobs`, savedJobRoutes); // saved job routes
 
 
 // HEALTH CHECK

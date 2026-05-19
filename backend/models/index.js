@@ -5,6 +5,7 @@ import { Enrollment } from './enrollmentModel.js';
 import { Job } from './jobsModel.js';
 import { Application } from './applicationsModel.js';
 import { Review } from './reviewsModel.js';
+import { SavedJob } from './savedJobModel.js';
 
 // =========================
 // TEACHER <-> COURSE
@@ -101,4 +102,30 @@ Review.belongsTo(Teacher, {
   as: "teacher",
 });
 
-export { Teacher, Course, Student, Enrollment, Job, Application, Review };
+// =========================
+// STUDENT <-> SAVEDJOB (One-to-Many)
+// =========================
+Student.hasMany(SavedJob, {
+  foreignKey: "studentId",
+  as: "savedJobs",
+});
+
+SavedJob.belongsTo(Student, {
+  foreignKey: "studentId",
+  as: "student",
+});
+
+// =========================
+// JOB <-> SAVEDJOB (One-to-Many)
+// =========================
+Job.hasMany(SavedJob, {
+  foreignKey: "jobId",
+  as: "savedByStudents",
+});
+
+SavedJob.belongsTo(Job, {
+  foreignKey: "jobId",
+  as: "job",
+});
+
+export { Teacher, Course, Student, Enrollment, Job, Application, Review, SavedJob };

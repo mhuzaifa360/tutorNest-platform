@@ -70,7 +70,7 @@ const startServer = async () => {
       console.log(`📡 API Base URL: http://localhost:${PORT}${API_PREFIX}`);
     });
   } catch (error) {
-    console.error("❌ Server error:", error.message);
+    console.error("❌ Server error:", error.message);  
     process.exit(1);
   }
 };

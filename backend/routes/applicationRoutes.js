@@ -25,21 +25,21 @@ router.post(
 
 // GET ALL
 router.get(
-  "/",
+  "/getApplications",
   verifyToken,
   getApplications
 );
 
 // GET SINGLE
 router.get(
-  "/:id",
+  "/getSingleApplication/:id",
   verifyToken,
   getSingleApplication
 );
 
 // UPDATE
 router.put(
-  "/:id",
+  "/updateApplication/:id",
   verifyToken,
   authorizeRoles("student"),
   updateApplication
@@ -47,7 +47,7 @@ router.put(
 
 // DELETE
 router.delete(
-  "/:id",
+  "/deleteApplication/:id",
   verifyToken,
   deleteApplication
 );

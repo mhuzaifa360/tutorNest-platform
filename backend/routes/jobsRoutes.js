@@ -21,6 +21,6 @@ router.put("/updateJob/:id",verifyToken,authorizeRoles("student"),  updateJob);
 router.delete("/deleteJob/:id",  verifyToken,authorizeRoles("student"),deleteJob);
 
 // RANKED JOBS | Role: Any (Public)
-router.get("/jobs/ranked", rankedJobs);
+router.get("/ranked", rankedJobs);
 
 export default router;

@@ -30,5 +30,5 @@ router.put("/updateTeacher/:id", verifyToken, authorizeRoles("teacher"), updateT
 router.delete("/deleteTeacher/:id",verifyToken,authorizeRoles("teacher","admin"), deleteTeachers,);
 
 // RANKED TEACHERS | Role: Any (Public)
-router.get("/teachers/ranked", rankedTeachers);
+router.get("/ranked", rankedTeachers);
 export default router;

@@ -28,9 +28,7 @@ export const verifyToken = (req, res, next) => {
   }
 };
 
-// =========================
 // ROLE CHECK (AUTHORIZATION)
-// =========================
 export const authorizeRoles = (...allowedRoles) => {
   return (req, res, next) => {
     try {
@@ -59,3 +57,4 @@ export const authorizeRoles = (...allowedRoles) => {
     }
   };
 };
+

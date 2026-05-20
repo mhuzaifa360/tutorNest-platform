@@ -21,13 +21,16 @@ router.post("/signupAdmin", createAdmin);
 router.post("/loginAdmin", loginAdmin);
 
 // PRIVATE (ADMIN ONLY)
+// admin profile
 router.get("/profile", verifyToken, authorizeRoles("admin"), getAdminProfile);
 
+// update admin
 router.put("/update", verifyToken, authorizeRoles("admin"), updateAdmin);
 
+// delete admin
 router.delete("/delete", verifyToken, authorizeRoles("admin"), deleteAdmin);
 
-// DASHBOARD
+// DASHBOARD STATS
 router.get("/stats",verifyToken,authorizeRoles("admin"),getDashboardStats);
 
 // TEACHER APPROVAL

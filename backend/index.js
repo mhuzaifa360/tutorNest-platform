@@ -14,6 +14,7 @@ import reviewRoutes from "./routes/reviewsRoutes.js";
 import savedJobRoutes from "./routes/savedJobRoutes.js"; 
 import notificationRoutes from "./routes/notificationRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
+import adminAnalyticsRoutes from "./routes/adminAnalyticsRoutes.js";
 
 // DB CONNECTION
 import { connectDB, sequelize } from "./config/database.js";
@@ -51,6 +52,7 @@ app.use(`${API_PREFIX}/reviews`, reviewRoutes); // review routes
 app.use(`${API_PREFIX}/savedJobs`, savedJobRoutes); // saved job routes
 app.use(`${API_PREFIX}/notifications`, notificationRoutes); // notification routes
 app.use(`${API_PREFIX}/admin`, adminRoutes); // admin routes
+app.use(`${API_PREFIX}/admin`, adminAnalyticsRoutes);// admin analytics routes
 
  
 // HEALTH CHECK

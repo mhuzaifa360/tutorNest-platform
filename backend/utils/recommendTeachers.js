@@ -3,9 +3,35 @@ import { Review } from "../models/index.js";
 export const calculateMatchScore = async (student, teacher) => {
   let score = 0;
 
+  // Helper function to safely parse subjects
+  const parseSubjects = (subjects) => {
+    console.log("Raw subjects:", subjects, "Type:", typeof subjects);
+    
+    if (Array.isArray(subjects)) return subjects;
+    if (typeof subjects === "string") {
+      try {
+        const parsed = JSON.parse(subjects);
+        // console.log("Parsed from string:", parsed);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (e) {
+        // console.log("Failed to parse JSON:", e.message);
+        return [];
+      }
+    }
+    if (subjects === null || subjects === undefined) return [];
+    // If it's an object but not an array, try to convert
+    if (typeof subjects === "object") {
+      return Array.isArray(subjects) ? subjects : [];
+    }
+    return [];
+  };
+
   // ⭐ SUBJECT MATCH (MOST IMPORTANT)
-  const studentSubjects = student.subjects || [];
-  const teacherSubjects = teacher.subjects || [];
+  const studentSubjects = parseSubjects(student.subjects);
+  const teacherSubjects = parseSubjects(teacher.subjects);
+
+  console.log("Student subjects after parse:", studentSubjects);
+  console.log("Teacher subjects after parse:", teacherSubjects);
 
   const subjectMatch = teacherSubjects.filter((sub) =>
     studentSubjects.includes(sub)

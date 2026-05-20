@@ -6,7 +6,7 @@ const router = express.Router();
 
 // 👨‍🎓 ONLY STUDENTS GET RECOMMENDATIONS
 router.get(
-  "/recommendTeachers",
+  "/recommendedTeachers",
   verifyToken,
   authorizeRoles("student"),  
   recommendTeachers

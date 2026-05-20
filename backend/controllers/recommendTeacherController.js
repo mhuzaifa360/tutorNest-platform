@@ -1,16 +1,30 @@
-import { Teacher, Review } from "../models/index.js";
+import { Teacher, Student, Review } from "../models/index.js";
 import { calculateMatchScore } from "../utils/recommendTeachers.js";
 
 export const recommendTeachers = async (req, res) => {
   try {
-    const student = req.user; 
-    // (JWT se student id + city + subjects should come)
+    const studentId = req.user.id;
+    
+    // Fetch full student data from database
+    const student = await Student.findByPk(studentId);
+    
+    if (!student) {
+      return res.status(404).json({
+        success: false,
+        message: "Student not found",
+      });
+    }
 
+    const studentData = student.toJSON();
+    console.log("Student data:", studentData);
+    
     const teachers = await Teacher.findAll();
 
     const scoredTeachers = await Promise.all(
       teachers.map(async (teacher) => {
-        const score = await calculateMatchScore(student, teacher);
+        const teacherData = teacher.toJSON();
+        console.log("Teacher data:", teacherData);
+        const score = await calculateMatchScore(studentData, teacherData);
 
         const reviews = await Review.findAll({
           where: { teacherId: teacher.id },

@@ -1,6 +1,7 @@
 import express from "express";
 import { createJob, getJobs,  getSingleJob, updateJob, deleteJob} from "../controllers/jobControllers.js";
 import { verifyToken, authorizeRoles } from "../middleware/authMiddleware.js";
+import { rankedJobs } from "../utils/rankJob.js";
 
 const router = express.Router();
 
@@ -18,5 +19,8 @@ router.put("/updateJob/:id",verifyToken,authorizeRoles("student"),  updateJob);
 
 // DELETE JOB | Role: student
 router.delete("/deleteJob/:id",  verifyToken,authorizeRoles("student"),deleteJob);
+
+// RANKED JOBS | Role: Any (Public)
+router.get("/jobs/ranked", rankedJobs);
 
 export default router;

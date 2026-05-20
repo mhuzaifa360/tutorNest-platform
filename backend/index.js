@@ -16,6 +16,7 @@ import notificationRoutes from "./routes/notificationRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import adminAnalyticsRoutes from "./routes/adminAnalyticsRoutes.js";
 import searchRoutes from "./routes/searchRoutes.js";
+import recommendRoutes from "./routes/recommendTeacherRoutes.js";
 
 // DB CONNECTION
 import { connectDB, sequelize } from "./config/database.js";
@@ -55,7 +56,7 @@ app.use(`${API_PREFIX}/notifications`, notificationRoutes); // notification rout
 app.use(`${API_PREFIX}/admin`, adminRoutes); // admin routes
 app.use(`${API_PREFIX}/admin`, adminAnalyticsRoutes);// admin analytics routes
 app.use(`${API_PREFIX}/search`, searchRoutes); // search routes
-
+app.use(`${API_PREFIX}/recommend`, recommendRoutes); // recommendation routes
  
 // HEALTH CHECK
 app.get("/", (req, res) => {

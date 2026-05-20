@@ -50,7 +50,7 @@ app.use(`${API_PREFIX}/reviews`, reviewRoutes); // review routes
 app.use(`${API_PREFIX}/savedJobs`, savedJobRoutes); // saved job routes
 app.use(`${API_PREFIX}/notifications`, notificationRoutes); // notification routes
 
-
+ 
 // HEALTH CHECK
 app.get("/", (req, res) => {
   res.send("🚀 TutorNest API Running");

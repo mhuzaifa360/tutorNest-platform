@@ -28,6 +28,6 @@ router.get("/getSingleReview/:id", getSingleReview);
 router.put("/updateReview/:id",verifyToken,authorizeRoles("student"),updateReview);
 
 // DELETE
-router.delete("/deleteReview/:id",verifyToken,deleteReview);
+router.delete("/deleteReview/:id",verifyToken,authorizeRoles("student"),deleteReview);
 
 export default router;

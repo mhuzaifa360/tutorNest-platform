@@ -1,17 +1,31 @@
 import { Review } from "../models/index.js";
+import { createNotification } from "./notificationController.js";
 
 // CREATE REVIEW
 export const createReview = async (req, res) => {
   try {
     const studentId = req.user.id;
 
-    const { teacherId, rating, comment } = req.body;
+    const {
+      teacherId,
+      rating,
+      comment,
+    } = req.body;
 
+    // CREATE REVIEW
     const review = await Review.create({
       studentId,
       teacherId,
       rating,
       comment,
+    });
+
+    // 🔔 CREATE NOTIFICATION FOR TEACHER
+    await createNotification({
+      userId: teacherId,
+      title: "New Review",
+      message: "You received a new review",
+      type: "review",
     });
 
     return res.status(201).json({
@@ -77,12 +91,20 @@ export const getSingleReview = async (req, res) => {
 // UPDATE REVIEW
 export const updateReview = async (req, res) => {
   try {
+    const studentId = req.user.id;
     const review = await Review.findByPk(req.params.id);
 
     if (!review) {
       return res.status(404).json({
         success: false,
         message: "Review not found",
+      });
+    }
+
+    if (review.studentId !== studentId) {
+      return res.status(403).json({
+        success: false,
+        message: "You can only update your own reviews",
       });
     }
 
@@ -106,12 +128,20 @@ export const updateReview = async (req, res) => {
 // DELETE REVIEW
 export const deleteReview = async (req, res) => {
   try {
+    const studentId = req.user.id;
     const review = await Review.findByPk(req.params.id);
 
     if (!review) {
       return res.status(404).json({
         success: false,
         message: "Review not found",
+      });
+    }
+
+    if (review.studentId !== studentId) {
+      return res.status(403).json({
+        success: false,
+        message: "You can only delete your own reviews",
       });
     }
 

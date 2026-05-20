@@ -1,4 +1,5 @@
-import { Application } from "../models/index.js";
+import { Application, Job } from "../models/index.js";
+import { createNotification } from "./notificationController.js";
 
 // APPLY ON JOB
 export const applyJob = async (req, res) => {
@@ -6,7 +7,17 @@ export const applyJob = async (req, res) => {
     const tutorId = req.user.id;
     const { jobId, message } = req.body;
 
-    // ❌ check duplicate application
+    // CHECK JOB EXISTS
+    const job = await Job.findByPk(jobId);
+
+    if (!job) {
+      return res.status(404).json({
+        success: false,
+        message: "Job not found",
+      });
+    }
+
+    // ❌ PREVENT DUPLICATE APPLICATION
     const existing = await Application.findOne({
       where: { jobId, tutorId },
     });
@@ -18,28 +29,37 @@ export const applyJob = async (req, res) => {
       });
     }
 
+    // CREATE APPLICATION
     const application = await Application.create({
       jobId,
       tutorId,
       message,
     });
 
+    // 🔔 CREATE NOTIFICATION FOR STUDENT
+    await createNotification({
+      userId: job.studentId,
+      title: "New Application",
+      message: "A tutor applied on your job",
+      type: "application",
+    });
+
     return res.status(201).json({
       success: true,
-      message: "Application submitted",
+      message: "Application submitted successfully",
       data: application,
     });
 
   } catch (error) {
     return res.status(500).json({
       success: false,
-      message: "Error applying job",
+      message: "Error applying on job",
       error: error.message,
     });
   }
 };
 
-// GET ALL APPLICATIONS (ADMIN / JOB OWNER)
+// GET ALL APPLICATIONS
 export const getApplications = async (req, res) => {
   try {
     const applications = await Application.findAll();
@@ -84,7 +104,7 @@ export const getSingleApplication = async (req, res) => {
   }
 };
 
-// UPDATE STATUS (ACCEPT / REJECT)
+// UPDATE APPLICATION STATUS
 export const updateApplicationStatus = async (req, res) => {
   try {
     const application = await Application.findByPk(req.params.id);
@@ -98,6 +118,7 @@ export const updateApplicationStatus = async (req, res) => {
 
     const { status } = req.body;
 
+    // VALIDATION
     if (!["accepted", "rejected"].includes(status)) {
       return res.status(400).json({
         success: false,
@@ -105,11 +126,20 @@ export const updateApplicationStatus = async (req, res) => {
       });
     }
 
+    // UPDATE STATUS
     await application.update({ status });
+
+    // 🔔 NOTIFICATION FOR TUTOR
+    await createNotification({
+      userId: application.tutorId,
+      title: "Application Updated",
+      message: `Your application has been ${status}`,
+      type: "application",
+    });
 
     return res.status(200).json({
       success: true,
-      message: "Application status updated",
+      message: "Application status updated successfully",
       data: application,
     });
 
@@ -138,7 +168,7 @@ export const deleteApplication = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      message: "Application deleted",
+      message: "Application deleted successfully",
     });
 
   } catch (error) {

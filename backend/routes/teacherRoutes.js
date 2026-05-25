@@ -8,6 +8,7 @@ import {
 } from "../controllers/teacherController.js";
 // import token and authentication
 import { verifyToken, authorizeRoles } from "../middleware/authMiddleware.js";
+import { rankedTeachers } from "../utils/rankTeacher.js";
 // define routes
 const router = express.Router();
 
@@ -28,4 +29,6 @@ router.put("/updateTeacher/:id", verifyToken, authorizeRoles("teacher"), updateT
 // DELETE TEACHER | Role: teacher, admin
 router.delete("/deleteTeacher/:id",verifyToken,authorizeRoles("teacher","admin"), deleteTeachers,);
 
+// RANKED TEACHERS | Role: Any (Public)
+router.get("/teachers/ranked", rankedTeachers);
 export default router;

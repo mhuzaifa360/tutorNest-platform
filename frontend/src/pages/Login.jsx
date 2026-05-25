@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 

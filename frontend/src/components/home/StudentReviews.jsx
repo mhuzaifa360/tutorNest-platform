@@ -1,4 +1,4 @@
-import React from "react";
+
 import Typography from "../common/Typography";
 import { FaStar } from "react-icons/fa";
 import { reviews } from "../../assets/constant/reviews";

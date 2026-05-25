@@ -1,4 +1,4 @@
-import React from "react";
+
 import Typography from "../common/Typography";
 import Btn from "../common/Btn";
 import { Link } from "react-router-dom";

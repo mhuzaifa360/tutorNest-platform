@@ -1,4 +1,4 @@
-import React from "react";
+
 import Typography from "../common/Typography";
 import { features } from "../../assets/constant/features";
 

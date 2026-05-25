@@ -1,4 +1,4 @@
-import React from "react";
+
 import Typography from "../components/common/Typography";
 import { courses } from "../assets/constant/coursesData";
 

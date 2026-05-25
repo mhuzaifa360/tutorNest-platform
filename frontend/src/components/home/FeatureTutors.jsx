@@ -1,4 +1,4 @@
-import React from "react";
+
 import Typography from "../common/Typography";
 import { Link } from "react-router-dom";
 import { tutors } from "../../assets/constant/tutors";

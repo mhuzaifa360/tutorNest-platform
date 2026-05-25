@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Typography from "../common/Typography";
 import { Link, useLocation } from "react-router";
 import Btn from "../common/Btn";

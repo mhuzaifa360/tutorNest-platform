@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {teachers} from "../assets/constant/teachersData"
 import Typography from "../components/common/Typography";
 import Btn from "../components/common/Btn";
